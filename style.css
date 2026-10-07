@@ -1,0 +1,228 @@
+/* ===== Reset and base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color: #22272b;
+  background-color: #f2f4f5;
+}
+
+/* ===== Header, main, footer ===== */
+header {
+  background-color: #1f2a33;
+  color: #ffffff;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+header p {
+  margin: 4px 0 0;
+  color: #c7ccd1;
+}
+
+main {
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 16px;
+  color: #5f6970;
+  font-size: 0.9rem;
+}
+
+/* ===== Form (Flexbox) ===== */
+#note-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-grow {
+  flex: 1 1 220px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+select {
+  padding: 10px 12px;
+  border: 1px solid #c5cbd0;
+  border-radius: 6px;
+  font: inherit;
+  background-color: #ffffff;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
+button {
+  background-color: #1f2a33;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+button:hover {
+  background-color: #3a4d5c;
+  transform: translateY(-1px);
+}
+
+#error-message {
+  color: #c62828;
+  font-weight: 600;
+  min-height: 1.5em;
+  margin: 12px 0 0;
+}
+
+/* ===== Notes list ===== */
+#note-count {
+  color: #5f6970;
+  margin: 12px 0;
+}
+
+#notes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.note-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  background-color: #ffffff;
+  border: 1px solid #dde1e4;
+  border-left-width: 6px;
+  border-radius: 8px;
+}
+
+.note-text {
+  margin: 0 0 6px;
+  overflow-wrap: anywhere;
+}
+
+.note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #5f6970;
+}
+
+.category-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* One style per category */
+.category-personal {
+  border-left-color: #0f9d8f;
+}
+.category-personal .category-label {
+  background-color: #d9f3f0;
+  color: #0b6b62;
+}
+
+.category-work {
+  border-left-color: #8b1e1e;
+}
+.category-work .category-label {
+  background-color: #f6dcdc;
+  color: #8b1e1e;
+}
+
+.category-study {
+  border-left-color: #2563eb;
+}
+.category-study .category-label {
+  background-color: #dbe7fd;
+  color: #1d4ed8;
+}
+
+.delete-btn {
+  background-color: #b3392f;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.delete-btn:hover {
+  background-color: #8f2a22;
+}
+
+.empty-message {
+  color: #5f6970;
+  font-style: italic;
+  padding: 8px 0;
+}
+
+/* ===== Small screens ===== */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  #note-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .note-card {
+    flex-direction: column;
+  }
+
+  .delete-btn {
+    align-self: flex-end;
+  }
+}
