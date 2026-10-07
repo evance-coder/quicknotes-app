@@ -3,13 +3,31 @@ const form = document.querySelector("#note-form");
 const noteInput = document.querySelector("#note-input");
 const noteCategory = document.querySelector("#note-category");
 const errorMessage = document.querySelector("#error-message");
+const searchInput = document.querySelector("#search-input");
 const noteCount = document.querySelector("#note-count");
 const notesList = document.querySelector("#notes-list");
 
 const MAX_LENGTH = 200;
+const STORAGE_KEY = "quicknotes-notes";
 
-// ===== Data =====
-let notes = [];
+// ===== Data (loaded from localStorage) =====
+function loadNotes() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved === null) return [];
+
+  try {
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveNotes() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+}
+
+let notes = loadNotes();
 
 // ===== Helpers =====
 function showError(message) {
@@ -28,14 +46,32 @@ function updateCount() {
 
 function deleteNote(id) {
   notes = notes.filter((note) => note.id !== id);
+  saveNotes();
   render();
+}
+
+// A note matches when its text contains every search word (any case).
+function matchesSearch(note, searchText) {
+  const words = searchText.toLowerCase().split(/\s+/).filter(Boolean);
+  const text = note.text.toLowerCase();
+  return words.every((word) => text.includes(word));
 }
 
 // ===== Render =====
 function render() {
   notesList.textContent = "";
 
-  notes.forEach((note) => {
+  const searchText = searchInput.value.trim();
+  const visibleNotes = notes.filter((note) => matchesSearch(note, searchText));
+
+  if (notes.length > 0 && visibleNotes.length === 0) {
+    const message = document.createElement("li");
+    message.className = "empty-message";
+    message.textContent = "No notes match your search.";
+    notesList.append(message);
+  }
+
+  visibleNotes.forEach((note) => {
     const card = document.createElement("li");
     card.className = `note-card category-${note.category}`;
 
@@ -94,11 +130,15 @@ form.addEventListener("submit", (event) => {
     createdAt: new Date().toLocaleString(),
   });
 
+  saveNotes();
   showError("");
   render();
 
   noteInput.value = "";
   noteInput.focus();
 });
+
+// ===== Search =====
+searchInput.addEventListener("input", render);
 
 render();
