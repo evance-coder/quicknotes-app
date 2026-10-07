@@ -6,6 +6,7 @@ const errorMessage = document.querySelector("#error-message");
 const searchInput = document.querySelector("#search-input");
 const noteCount = document.querySelector("#note-count");
 const notesList = document.querySelector("#notes-list");
+const clearAllBtn = document.querySelector("#clear-all");
 
 const MAX_LENGTH = 200;
 const STORAGE_KEY = "quicknotes-notes";
@@ -136,6 +137,17 @@ form.addEventListener("submit", (event) => {
 
   noteInput.value = "";
   noteInput.focus();
+});
+
+// ===== Clear all (bonus) =====
+clearAllBtn.addEventListener("click", () => {
+  if (notes.length === 0) return;
+
+  if (confirm("Delete all notes?")) {
+    notes = [];
+    saveNotes();
+    render();
+  }
 });
 
 // ===== Search =====

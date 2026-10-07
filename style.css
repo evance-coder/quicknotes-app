@@ -226,3 +226,15 @@ button:hover {
     align-self: flex-end;
   }
 }
+
+/* ===== Clear all button (bonus) ===== */
+#clear-all {
+  background-color: #b3392f;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+#clear-all:hover {
+  background-color: #8f2a22;
+}
